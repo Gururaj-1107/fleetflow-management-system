@@ -133,13 +133,13 @@ export default function Vehicles() {
             <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
               className="modal-content" onClick={e => e.stopPropagation()} data-testid="vehicle-modal">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-800">{modal === 'add' ? 'Add Vehicle' : 'Edit Vehicle'}</h2>
-                <button onClick={() => setModal(null)} className="text-gray-400 hover:text-gray-600"><X size={20} /></button>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">{modal === 'add' ? 'Add Vehicle' : 'Edit Vehicle'}</h2>
+                <button onClick={() => setModal(null)} className="text-gray-400 hover:text-white transition-colors"><X size={20} /></button>
               </div>
               <div className="space-y-4">
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">Name</label><input data-testid="vehicle-name-input" value={form.name || ''} onChange={e => setForm({ ...form, name: e.target.value })} className="input-modern" placeholder="e.g. Falcon X Truck" /></div>
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">Model</label><input data-testid="vehicle-model-input" value={form.model || ''} onChange={e => setForm({ ...form, model: e.target.value })} className="input-modern" placeholder="e.g. Ford F-750" /></div>
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">License Plate</label><input data-testid="vehicle-plate-input" value={form.license_plate || ''} onChange={e => setForm({ ...form, license_plate: e.target.value })} className="input-modern" placeholder="e.g. FL-001-TX" /></div>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">Name</label><input data-testid="vehicle-name-input" value={form.name || ''} onChange={e => setForm({ ...form, name: e.target.value })} className="input-modern" placeholder="e.g. Falcon X Truck" /></div>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">Model</label><input data-testid="vehicle-model-input" value={form.model || ''} onChange={e => setForm({ ...form, model: e.target.value })} className="input-modern" placeholder="e.g. Ford F-750" /></div>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">License Plate</label><input data-testid="vehicle-plate-input" value={form.license_plate || ''} onChange={e => setForm({ ...form, license_plate: e.target.value })} className="input-modern" placeholder="e.g. FL-001-TX" /></div>
                 <div className="grid grid-cols-2 gap-3">
                   <div><label className="text-sm font-medium text-gray-600 mb-1 block">Max Capacity (kg)</label><input data-testid="vehicle-capacity-input" type="number" value={form.max_capacity || ''} onChange={e => setForm({ ...form, max_capacity: e.target.value })} className="input-modern" /></div>
                   <div><label className="text-sm font-medium text-gray-600 mb-1 block">Odometer (km)</label><input type="number" value={form.odometer || ''} onChange={e => setForm({ ...form, odometer: e.target.value })} className="input-modern" /></div>
