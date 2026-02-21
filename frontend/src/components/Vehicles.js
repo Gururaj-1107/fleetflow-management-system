@@ -101,20 +101,20 @@ export default function Vehicles() {
                   <motion.tr key={v.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }} data-testid={`vehicle-row-${v.id}`}>
                     <td>
                       <div className="flex items-center gap-3">
-                        <div className="icon-gradient" style={{ width: 36, height: 36, borderRadius: 10 }}><Truck size={16} /></div>
-                        <div><p className="font-medium text-gray-800">{v.name}</p><p className="text-xs text-gray-400">{v.model}</p></div>
+                        <motion.div className="icon-gradient" style={{ width: 36, height: 36, borderRadius: 10 }} whileHover={{ scale: 1.1, rotate: 5 }}><Truck size={16} /></motion.div>
+                        <div><p className="font-medium">{v.name}</p><p className="text-xs text-gray-500">{v.model}</p></div>
                       </div>
                     </td>
                     <td className="font-mono text-sm">{v.license_plate}</td>
                     <td>{Number(v.max_capacity).toLocaleString()} kg</td>
                     <td>{Number(v.odometer).toLocaleString()} km</td>
                     <td><span className={`badge badge-${v.status}`}>{v.status.replace('_', ' ')}</span></td>
-                    <td>${Number(v.acquisition_cost).toLocaleString()}</td>
+                    <td className="text-indigo-400">${Number(v.acquisition_cost).toLocaleString()}</td>
                     {canEdit && (
                       <td>
                         <div className="flex gap-2">
-                          <button data-testid={`edit-vehicle-${v.id}`} onClick={() => openEdit(v)} className="p-2 rounded-lg hover:bg-indigo-50 text-indigo-500 transition-colors"><Edit size={16} /></button>
-                          <button data-testid={`delete-vehicle-${v.id}`} onClick={() => handleDelete(v.id)} className="p-2 rounded-lg hover:bg-red-50 text-red-400 transition-colors"><Trash2 size={16} /></button>
+                          <motion.button data-testid={`edit-vehicle-${v.id}`} onClick={() => openEdit(v)} className="p-2 rounded-lg hover:bg-indigo-500/20 text-indigo-400 transition-colors" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}><Edit size={16} /></motion.button>
+                          <motion.button data-testid={`delete-vehicle-${v.id}`} onClick={() => handleDelete(v.id)} className="p-2 rounded-lg hover:bg-red-500/20 text-red-400 transition-colors" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}><Trash2 size={16} /></motion.button>
                         </div>
                       </td>
                     )}
