@@ -204,7 +204,13 @@ async def delete_vehicle(vehicle_id: str, user=Depends(require_role('manager')))
     trips = supabase.table('trips').select('id').eq('vehicle_id', vehicle_id).eq('status', 'dispatched').execute()
     if trips.data:
         raise HTTPException(400, "Cannot delete vehicle with active trips")
-    supabase.table('vehicles').delete().eq('id', vehicle_id).execute()
+    try:
+        supabase.table('expenses').delete().eq('vehicle_id', vehicle_id).execute()
+        supabase.table('maintenance_logs').delete().eq('vehicle_id', vehicle_id).execute()
+        supabase.table('trips').delete().eq('vehicle_id', vehicle_id).execute()
+        supabase.table('vehicles').delete().eq('id', vehicle_id).execute()
+    except Exception as e:
+        raise HTTPException(400, f"Cannot delete vehicle: {str(e)}")
     return {"success": True}
 
 # --- Drivers ---
