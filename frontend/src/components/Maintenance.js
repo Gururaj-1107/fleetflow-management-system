@@ -68,30 +68,40 @@ export default function Maintenance() {
       {/* In Progress */}
       {inProgress.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-amber-600 mb-3 flex items-center gap-2"><Clock size={16} /> In Progress ({inProgress.length})</h3>
+          <h3 className="text-sm font-semibold text-amber-400 mb-3 flex items-center gap-2"><Clock size={16} /> In Progress ({inProgress.length})</h3>
           <div className="space-y-3">
             {inProgress.map((m, i) => (
               <motion.div key={m.id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
                 className="glass-card p-5 border-l-4 border-amber-400" data-testid={`maint-card-${m.id}`}>
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">
-                    <div className="icon-gradient-warning" style={{ width: 44, height: 44, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <motion.div 
+                      className="icon-gradient-warning" 
+                      style={{ width: 44, height: 44, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                    >
                       <Wrench size={20} className="text-white" />
-                    </div>
+                    </motion.div>
                     <div>
-                      <p className="font-semibold text-gray-800">{m.description}</p>
-                      <p className="text-sm text-gray-500 mt-1">Vehicle: <strong>{m.vehicles?.name || 'Unknown'}</strong></p>
+                      <p className="font-semibold">{m.description}</p>
+                      <p className="text-sm text-gray-400 mt-1">Vehicle: <strong className="text-gray-300">{m.vehicles?.name || 'Unknown'}</strong></p>
                       <div className="flex gap-4 mt-2 text-sm">
-                        <span className="text-gray-500">Cost: <strong className="text-red-500">${Number(m.cost).toLocaleString()}</strong></span>
-                        <span className="text-gray-500">Date: <strong>{m.service_date}</strong></span>
+                        <span className="text-gray-400">Cost: <strong className="text-red-400">${Number(m.cost).toLocaleString()}</strong></span>
+                        <span className="text-gray-400">Date: <strong className="text-gray-300">{m.service_date}</strong></span>
                       </div>
                     </div>
                   </div>
                   {canManage && (
-                    <button data-testid={`complete-maint-${m.id}`} onClick={() => handleComplete(m.id)}
-                      className="btn-primary py-2 px-4 text-sm" style={{ background: 'linear-gradient(135deg, #4facfe, #00f2fe)' }}>
+                    <motion.button 
+                      data-testid={`complete-maint-${m.id}`} 
+                      onClick={() => handleComplete(m.id)}
+                      className="btn-primary py-2 px-4 text-sm" 
+                      style={{ background: 'linear-gradient(135deg, #4facfe, #00f2fe)' }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
                       <CheckCircle size={14} /> Complete
-                    </button>
+                    </motion.button>
                   )}
                 </div>
               </motion.div>
@@ -102,15 +112,15 @@ export default function Maintenance() {
 
       {/* Completed Timeline */}
       <div>
-        <h3 className="text-sm font-semibold text-green-600 mb-3 flex items-center gap-2"><CheckCircle size={16} /> Completed ({completed.length})</h3>
+        <h3 className="text-sm font-semibold text-green-400 mb-3 flex items-center gap-2"><CheckCircle size={16} /> Completed ({completed.length})</h3>
         <div className="relative pl-6 space-y-3">
-          <div className="absolute left-2.5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-300 to-green-100" />
-          {completed.length === 0 ? <p className="text-gray-400 text-sm py-4">No completed maintenance</p> :
+          <div className="absolute left-2.5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-400 to-green-900" />
+          {completed.length === 0 ? <p className="text-gray-500 text-sm py-4">No completed maintenance</p> :
             completed.map((m, i) => (
               <motion.div key={m.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
                 className="glass-card p-4 relative" data-testid={`maint-completed-${m.id}`}>
-                <div className="absolute -left-[17px] top-5 w-3 h-3 rounded-full bg-green-400 border-2 border-white" />
-                <p className="font-medium text-gray-800">{m.description}</p>
+                <div className="absolute -left-[17px] top-5 w-3 h-3 rounded-full bg-green-400 border-2 border-green-900 shadow-lg shadow-green-400/30" />
+                <p className="font-medium">{m.description}</p>
                 <div className="flex gap-4 mt-1 text-sm text-gray-500">
                   <span>{m.vehicles?.name || 'Unknown'}</span>
                   <span>${Number(m.cost).toLocaleString()}</span>
