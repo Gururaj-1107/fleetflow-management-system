@@ -100,7 +100,10 @@ export default function Trips() {
 
       <div className="space-y-3">
         {filtered.length === 0 ? (
-          <div className="glass-card p-8 text-center text-gray-400">No trips found</div>
+          <div className="glass-card p-8 text-center text-gray-500">
+            <MapPin size={40} className="mx-auto mb-3 opacity-50" />
+            No trips found
+          </div>
         ) : (
           filtered.map((t, i) => (
             <motion.div key={t.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
@@ -109,16 +112,16 @@ export default function Trips() {
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <span className={`badge badge-${t.status}`}>{t.status}</span>
-                    <span className="text-xs text-gray-400 font-mono">{t.id?.slice(0, 8)}</span>
+                    <span className="text-xs text-gray-500 font-mono">{t.id?.slice(0, 8)}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-800 font-medium">
-                    <MapPin size={16} className="text-indigo-400" />{t.origin} <ArrowRight size={14} className="text-gray-300" /> {t.destination}
+                  <div className="flex items-center gap-2 font-medium">
+                    <MapPin size={16} className="text-indigo-400" />{t.origin} <ArrowRight size={14} className="text-gray-500" /> {t.destination}
                   </div>
-                  <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-500">
-                    <span>Vehicle: <strong className="text-gray-700">{t.vehicles?.name || '-'}</strong></span>
-                    <span>Driver: <strong className="text-gray-700">{t.drivers?.full_name || '-'}</strong></span>
-                    <span>Cargo: <strong className="text-gray-700">{Number(t.cargo_weight).toLocaleString()} kg</strong></span>
-                    <span>Revenue: <strong className="text-indigo-600">${Number(t.revenue || 0).toLocaleString()}</strong></span>
+                  <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-400">
+                    <span>Vehicle: <strong className="text-gray-300">{t.vehicles?.name || '-'}</strong></span>
+                    <span>Driver: <strong className="text-gray-300">{t.drivers?.full_name || '-'}</strong></span>
+                    <span>Cargo: <strong className="text-gray-300">{Number(t.cargo_weight).toLocaleString()} kg</strong></span>
+                    <span>Revenue: <strong className="text-indigo-400">${Number(t.revenue || 0).toLocaleString()}</strong></span>
                   </div>
                 </div>
                 {canManage && (
