@@ -32,7 +32,7 @@ export default function Layout() {
     });
     const cleanup = initRealtime();
     return cleanup;
-  }, []);
+  }, [checkHealth, fetchAll, initRealtime]);
 
   const handleLogout = () => { logout(); navigate('/login'); };
 
