@@ -451,13 +451,18 @@ html, body, #root { height: 100%; font-family: 'Outfit', system-ui, -apple-syste
 
 .input-icon-wrapper .input-icon {
   position: absolute;
-  left: 16px;
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
   color: #6b6b80;
   pointer-events: none;
   z-index: 2;
   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Input with icon needs more left padding for gap */
+.input-icon-wrapper .input-modern {
+  padding-left: 52px;
 }
 
 /* Hide icon when input has value (not showing placeholder) */
