@@ -236,13 +236,13 @@ export default function Login() {
                         onChange={e => setForm({ ...form, email: e.target.value })}
                         className="input-modern pl-12" 
                       />
+                      <Mail className="input-icon" size={18} />
                     </div>
                     {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
                   </div>
 
                   <div>
-                    <div className="relative">
-                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <div className="input-icon-wrapper">
                       <input 
                         data-testid="login-password-input" 
                         type="password" 
@@ -251,6 +251,7 @@ export default function Login() {
                         onChange={e => setForm({ ...form, password: e.target.value })}
                         className="input-modern pl-12" 
                       />
+                      <Lock className="input-icon" size={18} />
                     </div>
                     {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password}</p>}
                   </div>
