@@ -210,8 +210,7 @@ export default function Login() {
                         animate={{ height: 'auto', opacity: 1 }} 
                         exit={{ height: 0, opacity: 0 }}
                       >
-                        <div className="relative">
-                          <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                        <div className="input-icon-wrapper">
                           <input 
                             data-testid="register-name-input" 
                             type="text" 
@@ -220,6 +219,7 @@ export default function Login() {
                             onChange={e => setForm({ ...form, full_name: e.target.value })}
                             className="input-modern pl-12" 
                           />
+                          <User className="input-icon" size={18} />
                         </div>
                         {errors.full_name && <p className="text-red-400 text-sm mt-1">{errors.full_name}</p>}
                       </motion.div>
@@ -227,8 +227,7 @@ export default function Login() {
                   </AnimatePresence>
 
                   <div>
-                    <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <div className="input-icon-wrapper">
                       <input 
                         data-testid="login-email-input" 
                         type="email" 
