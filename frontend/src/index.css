@@ -1026,3 +1026,110 @@ a.text-link:hover {
 .animate-pulse {
   animation: pulse 2s ease-in-out infinite;
 }
+
+
+/* ==================== DARK MODE TEXT COLOR FIXES ==================== */
+/* Ensure ALL black text becomes white in dark mode */
+
+/* Default text colors in dark mode */
+body, html, #root {
+  color: var(--text-primary);
+}
+
+/* Fix any black text in dark mode */
+.text-black { color: var(--text-primary); }
+[data-theme="light"] .text-black { color: #000000; }
+
+/* Table text */
+.glass-table td, .glass-table th {
+  color: var(--text-primary);
+}
+
+/* Form labels and text */
+label, .label {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] label,
+[data-theme="light"] .label {
+  color: #4b5563;
+}
+
+/* Ensure font-medium and font-semibold text is visible */
+.font-medium, .font-semibold, .font-bold {
+  color: inherit;
+}
+
+/* Fix for any remaining gray-800, gray-900 or black text */
+.text-gray-900 { color: var(--text-primary); }
+.text-gray-800 { color: var(--text-primary); }
+
+[data-theme="light"] .text-gray-900 { color: #111827; }
+[data-theme="light"] .text-gray-800 { color: #1f2937; }
+
+/* Modal and card text */
+.modal-content, .glass-card {
+  color: var(--text-primary);
+}
+
+.modal-content p, .glass-card p,
+.modal-content span, .glass-card span,
+.modal-content div, .glass-card div {
+  color: inherit;
+}
+
+/* Strong/bold text in dark mode */
+strong, b {
+  color: inherit;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+  color: #1f2937;
+}
+
+/* Select dropdown text */
+select, select option {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] select,
+[data-theme="light"] select option {
+  color: #1a1a2e;
+}
+
+/* Ensure placeholder stays gray */
+input::placeholder, textarea::placeholder {
+  color: #6b6b80 !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Fix any inline black color */
+[style*="color: black"],
+[style*="color:#000"],
+[style*="color: #000"] {
+  color: var(--text-primary) !important;
+}
+
+/* Data in tables */
+td strong, th strong {
+  color: inherit;
+}
+
+/* Numbers and values */
+.tabular-nums {
+  color: inherit;
+}
