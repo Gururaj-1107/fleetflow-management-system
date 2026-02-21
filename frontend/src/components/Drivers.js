@@ -5,11 +5,15 @@ import toast from 'react-hot-toast';
 import useStore from '../store/useStore';
 
 export default function Drivers() {
-  const { drivers, api, user } = useStore();
+  const { drivers, api, user, fetchDrivers } = useStore();
   const [modal, setModal] = useState(null);
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
   const canManage = ['manager', 'safety'].includes(user?.role);
+
+  React.useEffect(() => {
+    if (!drivers || drivers.length === 0) fetchDrivers();
+  }, []);
 
   const openAdd = () => {
     setForm({ full_name: '', license_number: '', license_expiry: '', safety_score: 100, status: 'off_duty' });
