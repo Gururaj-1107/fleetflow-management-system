@@ -5,11 +5,16 @@ import toast from 'react-hot-toast';
 import useStore from '../store/useStore';
 
 export default function Maintenance() {
-  const { maintenance, vehicles, api, user } = useStore();
+  const { maintenance, vehicles, api, user, fetchMaintenance, fetchVehicles } = useStore();
   const [modal, setModal] = useState(false);
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
   const canManage = user?.role === 'manager';
+
+  React.useEffect(() => {
+    if (!maintenance || maintenance.length === 0) fetchMaintenance();
+    if (!vehicles || vehicles.length === 0) fetchVehicles();
+  }, []);
 
   const openAdd = () => {
     setForm({ vehicle_id: '', description: '', cost: '', service_date: new Date().toISOString().split('T')[0] });
