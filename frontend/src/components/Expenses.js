@@ -99,16 +99,16 @@ export default function Expenses() {
           <table className="glass-table" data-testid="expenses-table">
             <thead><tr><th>Vehicle</th><th>Trip</th><th>Fuel (L)</th><th>Fuel Cost</th><th>Other Cost</th><th>Total</th><th>Date</th></tr></thead>
             <tbody>
-              {(expenses || []).length === 0 ? <tr><td colSpan={7} className="text-center text-gray-400 py-8">No expenses logged</td></tr> :
+              {(expenses || []).length === 0 ? <tr><td colSpan={7} className="text-center text-gray-500 py-8">No expenses logged</td></tr> :
                 (expenses || []).map((e, i) => (
                   <motion.tr key={e.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }} data-testid={`expense-row-${e.id}`}>
                     <td className="font-medium">{e.vehicles?.name || '-'}</td>
-                    <td className="text-xs text-gray-400 font-mono">{e.trips ? `${e.trips.origin} → ${e.trips.destination}` : '-'}</td>
+                    <td className="text-xs text-gray-500 font-mono">{e.trips ? `${e.trips.origin} → ${e.trips.destination}` : '-'}</td>
                     <td>{Number(e.fuel_liters || 0).toLocaleString()} L</td>
-                    <td className="text-red-500 font-medium">${Number(e.fuel_cost || 0).toLocaleString()}</td>
+                    <td className="text-red-400 font-medium">${Number(e.fuel_cost || 0).toLocaleString()}</td>
                     <td>${Number(e.other_cost || 0).toLocaleString()}</td>
-                    <td className="font-bold text-gray-800">${(Number(e.fuel_cost || 0) + Number(e.other_cost || 0)).toLocaleString()}</td>
-                    <td className="text-sm text-gray-400">{e.created_at?.slice(0, 10)}</td>
+                    <td className="font-bold text-indigo-400">${(Number(e.fuel_cost || 0) + Number(e.other_cost || 0)).toLocaleString()}</td>
+                    <td className="text-sm text-gray-500">{e.created_at?.slice(0, 10)}</td>
                   </motion.tr>
                 ))}
             </tbody>
