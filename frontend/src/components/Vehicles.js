@@ -141,12 +141,12 @@ export default function Vehicles() {
                 <div><label className="text-sm font-medium text-gray-400 mb-1 block">Model</label><input data-testid="vehicle-model-input" value={form.model || ''} onChange={e => setForm({ ...form, model: e.target.value })} className="input-modern" placeholder="e.g. Ford F-750" /></div>
                 <div><label className="text-sm font-medium text-gray-400 mb-1 block">License Plate</label><input data-testid="vehicle-plate-input" value={form.license_plate || ''} onChange={e => setForm({ ...form, license_plate: e.target.value })} className="input-modern" placeholder="e.g. FL-001-TX" /></div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Max Capacity (kg)</label><input data-testid="vehicle-capacity-input" type="number" value={form.max_capacity || ''} onChange={e => setForm({ ...form, max_capacity: e.target.value })} className="input-modern" /></div>
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Odometer (km)</label><input type="number" value={form.odometer || ''} onChange={e => setForm({ ...form, odometer: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Max Capacity (kg)</label><input data-testid="vehicle-capacity-input" type="number" value={form.max_capacity || ''} onChange={e => setForm({ ...form, max_capacity: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Odometer (km)</label><input type="number" value={form.odometer || ''} onChange={e => setForm({ ...form, odometer: e.target.value })} className="input-modern" /></div>
                 </div>
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">Acquisition Cost ($)</label><input type="number" value={form.acquisition_cost || ''} onChange={e => setForm({ ...form, acquisition_cost: e.target.value })} className="input-modern" /></div>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">Acquisition Cost ($)</label><input type="number" value={form.acquisition_cost || ''} onChange={e => setForm({ ...form, acquisition_cost: e.target.value })} className="input-modern" /></div>
                 {modal === 'edit' && (
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Status</label>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Status</label>
                     <select value={form.status || 'available'} onChange={e => setForm({ ...form, status: e.target.value })} className="select-modern">
                       {statuses.map(s => <option key={s} value={s}>{s.replace('_', ' ')}</option>)}
                     </select>
