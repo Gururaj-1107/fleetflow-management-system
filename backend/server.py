@@ -235,7 +235,11 @@ async def delete_driver(driver_id: str, user=Depends(require_role('manager'))):
     trips = supabase.table('trips').select('id').eq('driver_id', driver_id).eq('status', 'dispatched').execute()
     if trips.data:
         raise HTTPException(400, "Cannot delete driver with active trips")
-    supabase.table('drivers').delete().eq('id', driver_id).execute()
+    try:
+        supabase.table('trips').update({'driver_id': None}).eq('driver_id', driver_id).execute()
+        supabase.table('drivers').delete().eq('id', driver_id).execute()
+    except Exception as e:
+        raise HTTPException(400, f"Cannot delete driver: {str(e)}")
     return {"success": True}
 
 # --- Trips (Business Logic) ---
