@@ -75,7 +75,10 @@ export default function Drivers() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {(drivers || []).length === 0 ? (
-          <div className="glass-card p-8 col-span-full text-center text-gray-400">No drivers found</div>
+          <div className="glass-card p-8 col-span-full text-center text-gray-500">
+            <Users size={40} className="mx-auto mb-3 opacity-50" />
+            No drivers found
+          </div>
         ) : (
           (drivers || []).map((d, i) => {
             const sc = getScoreColor(d.safety_score);
@@ -84,30 +87,49 @@ export default function Drivers() {
                 className="glass-card glass-card-hover p-5" data-testid={`driver-card-${d.id}`}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                    <motion.div 
+                      className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-500/30"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                    >
                       {d.full_name[0]}
-                    </div>
+                    </motion.div>
                     <div>
-                      <p className="font-semibold text-gray-800">{d.full_name}</p>
+                      <p className="font-semibold">{d.full_name}</p>
                       <span className={`badge badge-${d.status} text-xs`}>{d.status.replace('_', ' ')}</span>
                     </div>
                   </div>
                   {canManage && (
-                    <button data-testid={`edit-driver-${d.id}`} onClick={() => openEdit(d)} className="p-2 rounded-lg hover:bg-indigo-50 text-indigo-400 transition-colors">
+                    <motion.button 
+                      data-testid={`edit-driver-${d.id}`} 
+                      onClick={() => openEdit(d)} 
+                      className="p-2 rounded-lg hover:bg-indigo-500/20 text-indigo-400 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       <Edit size={16} />
-                    </button>
+                    </motion.button>
                   )}
                 </div>
 
                 <div className="flex items-center gap-4 mb-3">
-                  <div className={`safety-circle ring-4 ${sc.ring}`} data-testid={`driver-score-${d.id}`}
-                    style={{ background: `linear-gradient(135deg, ${sc.bg.includes('green') ? '#43e97b, #38f9d7' : sc.bg.includes('amber') ? '#fa709a, #fee140' : '#f5576c, #f093fb'})` }}>
+                  <motion.div 
+                    className={`safety-circle ring-4 ${sc.ring}`} 
+                    data-testid={`driver-score-${d.id}`}
+                    style={{ background: `linear-gradient(135deg, ${sc.bg.includes('green') ? '#43e97b, #38f9d7' : sc.bg.includes('amber') ? '#fa709a, #fee140' : '#f5576c, #f093fb'})` }}
+                    whileHover={{ scale: 1.1 }}
+                  >
                     <span className="text-white font-bold text-sm">{d.safety_score}</span>
-                  </div>
+                  </motion.div>
                   <div className="flex-1">
                     <p className="text-xs text-gray-400 mb-1">Safety Score</p>
                     <div className="progress-bar-container">
-                      <div className="progress-bar-fill" style={{ width: `${d.safety_score}%`, background: d.safety_score >= 80 ? 'linear-gradient(90deg, #43e97b, #38f9d7)' : d.safety_score >= 60 ? 'linear-gradient(90deg, #fa709a, #fee140)' : 'linear-gradient(90deg, #f5576c, #f093fb)' }} />
+                      <motion.div 
+                        className="progress-bar-fill" 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${d.safety_score}%` }}
+                        transition={{ duration: 0.8, delay: i * 0.1 }}
+                        style={{ background: d.safety_score >= 80 ? 'linear-gradient(90deg, #43e97b, #38f9d7)' : d.safety_score >= 60 ? 'linear-gradient(90deg, #fa709a, #fee140)' : 'linear-gradient(90deg, #f5576c, #f093fb)' }} 
+                      />
                     </div>
                   </div>
                 </div>
@@ -115,20 +137,24 @@ export default function Drivers() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-500">License</span>
-                    <span className="font-mono text-xs text-gray-700">{d.license_number}</span>
+                    <span className="font-mono text-xs">{d.license_number}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-500">Expires</span>
-                    <span className={`font-medium ${isExpired(d) ? 'text-red-500' : isExpiring(d) ? 'text-amber-500' : 'text-gray-700'}`}>
+                    <span className={`font-medium ${isExpired(d) ? 'text-red-400' : isExpiring(d) ? 'text-amber-400' : 'text-gray-300'}`}>
                       {isExpired(d) && <AlertTriangle size={12} className="inline mr-1" />}
                       {isExpiring(d) && <AlertTriangle size={12} className="inline mr-1" />}
                       {d.license_expiry}
                     </span>
                   </div>
                   {d.safety_score < 60 && (
-                    <div className="flex items-center gap-1 p-2 rounded-lg bg-red-50 text-red-600 text-xs font-medium">
+                    <motion.div 
+                      className="flex items-center gap-1 p-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-medium"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                    >
                       <Shield size={12} /> High Risk Driver
-                    </div>
+                    </motion.div>
                   )}
                 </div>
               </motion.div>
