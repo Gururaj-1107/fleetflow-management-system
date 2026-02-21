@@ -163,33 +163,49 @@ export default function Trips() {
               {/* Steps */}
               <div className="flex gap-2 mb-6">
                 {steps.map((s, i) => (
-                  <div key={i} className={`flex-1 h-1.5 rounded-full transition-all ${i <= step ? 'bg-gradient-to-r from-indigo-500 to-purple-500' : 'bg-gray-200'}`} />
+                  <motion.div 
+                    key={i} 
+                    className={`flex-1 h-1.5 rounded-full transition-all ${i <= step ? 'bg-gradient-to-r from-indigo-500 to-purple-500' : 'bg-gray-700'}`}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: i <= step ? 1 : 0.3 }}
+                    transition={{ duration: 0.3 }}
+                  />
                 ))}
               </div>
-              <p className="text-sm text-gray-500 mb-4">Step {step + 1}: {steps[step]}</p>
+              <p className="text-sm text-gray-400 mb-4">Step {step + 1}: {steps[step]}</p>
 
               {step === 0 && (
                 <div className="space-y-2 max-h-64 overflow-y-auto">
-                  {availableVehicles.length === 0 ? <p className="text-gray-400 text-sm py-4 text-center">No available vehicles</p> :
+                  {availableVehicles.length === 0 ? <p className="text-gray-500 text-sm py-4 text-center">No available vehicles</p> :
                     availableVehicles.map(v => (
-                      <button key={v.id} data-testid={`select-vehicle-${v.id}`} onClick={() => setForm({ ...form, vehicle_id: v.id })}
-                        className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${form.vehicle_id === v.id ? 'border-indigo-500 bg-indigo-50/50' : 'border-transparent bg-white/50 hover:bg-white'}`}>
+                      <motion.button 
+                        key={v.id} 
+                        data-testid={`select-vehicle-${v.id}`} 
+                        onClick={() => setForm({ ...form, vehicle_id: v.id })}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${form.vehicle_id === v.id ? 'border-indigo-500 bg-indigo-500/10' : 'border-transparent bg-white/5 hover:bg-white/10'}`}>
                         <div className="icon-gradient" style={{ width: 40, height: 40, borderRadius: 12 }}><MapPin size={16} /></div>
-                        <div className="flex-1"><p className="font-medium text-gray-800">{v.name}</p><p className="text-xs text-gray-400">{v.model} | {v.license_plate} | Cap: {Number(v.max_capacity).toLocaleString()} kg</p></div>
-                      </button>
+                        <div className="flex-1"><p className="font-medium">{v.name}</p><p className="text-xs text-gray-500">{v.model} | {v.license_plate} | Cap: {Number(v.max_capacity).toLocaleString()} kg</p></div>
+                      </motion.button>
                     ))}
                 </div>
               )}
 
               {step === 1 && (
                 <div className="space-y-2 max-h-64 overflow-y-auto">
-                  {availableDrivers.length === 0 ? <p className="text-gray-400 text-sm py-4 text-center">No available drivers</p> :
+                  {availableDrivers.length === 0 ? <p className="text-gray-500 text-sm py-4 text-center">No available drivers</p> :
                     availableDrivers.map(d => (
-                      <button key={d.id} data-testid={`select-driver-${d.id}`} onClick={() => setForm({ ...form, driver_id: d.id })}
-                        className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${form.driver_id === d.id ? 'border-indigo-500 bg-indigo-50/50' : 'border-transparent bg-white/50 hover:bg-white'}`}>
+                      <motion.button 
+                        key={d.id} 
+                        data-testid={`select-driver-${d.id}`} 
+                        onClick={() => setForm({ ...form, driver_id: d.id })}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${form.driver_id === d.id ? 'border-indigo-500 bg-indigo-500/10' : 'border-transparent bg-white/5 hover:bg-white/10'}`}>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-400 to-purple-400 flex items-center justify-center text-white font-bold text-sm">{d.full_name[0]}</div>
-                        <div className="flex-1"><p className="font-medium text-gray-800">{d.full_name}</p><p className="text-xs text-gray-400">Safety: {d.safety_score} | License: {d.license_expiry}</p></div>
-                      </button>
+                        <div className="flex-1"><p className="font-medium">{d.full_name}</p><p className="text-xs text-gray-500">Safety: {d.safety_score} | License: {d.license_expiry}</p></div>
+                      </motion.button>
                     ))}
                 </div>
               )}
