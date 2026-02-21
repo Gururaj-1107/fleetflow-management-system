@@ -133,8 +133,7 @@ export default function Login() {
                 {!resetSent ? (
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                      <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                      <div className="input-icon-wrapper">
                         <input 
                           data-testid="forgot-email-input" 
                           type="email" 
@@ -143,6 +142,7 @@ export default function Login() {
                           onChange={e => setForm({ ...form, email: e.target.value })}
                           className="input-modern pl-12" 
                         />
+                        <Mail className="input-icon" size={18} />
                       </div>
                       {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
                     </div>
