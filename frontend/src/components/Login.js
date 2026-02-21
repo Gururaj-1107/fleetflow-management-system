@@ -140,7 +140,7 @@ export default function Login() {
                           placeholder="Email address" 
                           value={form.email}
                           onChange={e => setForm({ ...form, email: e.target.value })}
-                          className="input-modern pl-12" 
+                          className="input-modern" 
                         />
                         <Mail className="input-icon" size={18} />
                       </div>
@@ -217,7 +217,7 @@ export default function Login() {
                             placeholder="Full Name" 
                             value={form.full_name}
                             onChange={e => setForm({ ...form, full_name: e.target.value })}
-                            className="input-modern pl-12" 
+                            className="input-modern" 
                           />
                           <User className="input-icon" size={18} />
                         </div>
@@ -234,7 +234,7 @@ export default function Login() {
                         placeholder="Email address" 
                         value={form.email}
                         onChange={e => setForm({ ...form, email: e.target.value })}
-                        className="input-modern pl-12" 
+                        className="input-modern" 
                       />
                       <Mail className="input-icon" size={18} />
                     </div>
@@ -249,7 +249,7 @@ export default function Login() {
                         placeholder="Password" 
                         value={form.password}
                         onChange={e => setForm({ ...form, password: e.target.value })}
-                        className="input-modern pl-12" 
+                        className="input-modern" 
                       />
                       <Lock className="input-icon" size={18} />
                     </div>

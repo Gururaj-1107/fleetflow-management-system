@@ -80,7 +80,7 @@ export default function Vehicles() {
       <div className="glass-card p-4 flex flex-col sm:flex-row gap-3">
         <div className="input-icon-wrapper flex-1">
           <input data-testid="vehicle-search" placeholder="Search vehicles..." value={search} onChange={e => setSearch(e.target.value)}
-            className="input-modern pl-12" style={{ borderRadius: 999 }} />
+            className="input-modern" style={{ borderRadius: 999 }} />
           <Search className="input-icon" size={18} />
         </div>
         <select data-testid="vehicle-status-filter" value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="select-modern" style={{ maxWidth: 200 }}>
