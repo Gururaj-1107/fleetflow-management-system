@@ -156,8 +156,8 @@ export default function Trips() {
             <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
               className="modal-content" style={{ maxWidth: 600 }} onClick={e => e.stopPropagation()} data-testid="trip-wizard">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-800">Create Trip</h2>
-                <button onClick={() => setModal(null)} className="text-gray-400 hover:text-gray-600"><X size={20} /></button>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Create Trip</h2>
+                <button onClick={() => setModal(null)} className="text-gray-400 hover:text-white transition-colors"><X size={20} /></button>
               </div>
 
               {/* Steps */}
