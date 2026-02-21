@@ -34,7 +34,10 @@ export default function Layout() {
     return cleanup;
   }, [checkHealth, fetchAll, initRealtime]);
 
-  const handleLogout = () => { logout(); navigate('/login'); };
+  const handleLogout = () => { 
+    logout(); 
+    window.location.href = '/login';
+  };
 
   return (
     <div className="mesh-bg flex h-screen overflow-hidden" data-testid="main-layout">
