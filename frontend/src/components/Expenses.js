@@ -5,11 +5,17 @@ import toast from 'react-hot-toast';
 import useStore from '../store/useStore';
 
 export default function Expenses() {
-  const { expenses, vehicles, trips, api, user } = useStore();
+  const { expenses, vehicles, trips, api, user, fetchExpenses, fetchVehicles, fetchTrips } = useStore();
   const [modal, setModal] = useState(false);
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
   const canManage = ['manager', 'dispatcher'].includes(user?.role);
+
+  React.useEffect(() => {
+    if (!expenses || expenses.length === 0) fetchExpenses();
+    if (!vehicles || vehicles.length === 0) fetchVehicles();
+    if (!trips || trips.length === 0) fetchTrips();
+  }, []);
 
   const totalFuel = (expenses || []).reduce((sum, e) => sum + (Number(e.fuel_cost) || 0), 0);
   const totalOther = (expenses || []).reduce((sum, e) => sum + (Number(e.other_cost) || 0), 0);
