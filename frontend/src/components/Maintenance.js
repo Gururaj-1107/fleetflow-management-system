@@ -43,10 +43,27 @@ export default function Maintenance() {
 
   return (
     <div className="space-y-4" data-testid="maintenance-page">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div><h1 className="text-2xl font-bold text-gray-800">Maintenance & Service</h1><p className="text-gray-500 text-sm">Timeline view of fleet health</p></div>
-        {canManage && <button data-testid="add-maintenance-btn" onClick={openAdd} className="btn-primary"><Plus size={18} /> Log Service</button>}
-      </div>
+      <motion.div 
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Maintenance & Service</h1>
+          <p className="text-gray-400 text-sm">Timeline view of fleet health</p>
+        </div>
+        {canManage && (
+          <motion.button 
+            data-testid="add-maintenance-btn" 
+            onClick={openAdd} 
+            className="btn-primary"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Plus size={18} /> Log Service
+          </motion.button>
+        )}
+      </motion.div>
 
       {/* In Progress */}
       {inProgress.length > 0 && (
