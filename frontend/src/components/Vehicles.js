@@ -78,10 +78,10 @@ export default function Vehicles() {
       </motion.div>
 
       <div className="glass-card p-4 flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-1">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+        <div className="input-icon-wrapper flex-1">
           <input data-testid="vehicle-search" placeholder="Search vehicles..." value={search} onChange={e => setSearch(e.target.value)}
             className="input-modern pl-12" style={{ borderRadius: 999 }} />
+          <Search className="input-icon" size={18} />
         </div>
         <select data-testid="vehicle-status-filter" value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="select-modern" style={{ maxWidth: 200 }}>
           <option value="all">All Statuses</option>
