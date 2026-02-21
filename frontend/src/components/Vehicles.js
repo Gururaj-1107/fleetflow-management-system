@@ -7,13 +7,22 @@ import useStore from '../store/useStore';
 const statuses = ['available', 'on_trip', 'in_shop', 'retired'];
 
 export default function Vehicles() {
-  const { vehicles, api, user } = useStore();
+  const { vehicles, api, user, fetchVehicles } = useStore();
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [modal, setModal] = useState(null);
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const canEdit = user?.role === 'manager';
+
+  React.useEffect(() => {
+    if (!vehicles || vehicles.length === 0) {
+      fetchVehicles().then(() => setDataLoaded(true));
+    } else {
+      setDataLoaded(true);
+    }
+  }, []);
 
   const filtered = (vehicles || []).filter(v => {
     const matchSearch = v.name.toLowerCase().includes(search.toLowerCase()) || v.license_plate.toLowerCase().includes(search.toLowerCase());
