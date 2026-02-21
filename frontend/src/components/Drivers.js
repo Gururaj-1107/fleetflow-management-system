@@ -51,10 +51,27 @@ export default function Drivers() {
 
   return (
     <div className="space-y-4" data-testid="drivers-page">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div><h1 className="text-2xl font-bold text-gray-800">Driver Performance</h1><p className="text-gray-500 text-sm">Safety profiles & compliance</p></div>
-        {canManage && <button data-testid="add-driver-btn" onClick={openAdd} className="btn-primary"><Plus size={18} /> Add Driver</button>}
-      </div>
+      <motion.div 
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Driver Performance</h1>
+          <p className="text-gray-400 text-sm">Safety profiles & compliance</p>
+        </div>
+        {canManage && (
+          <motion.button 
+            data-testid="add-driver-btn" 
+            onClick={openAdd} 
+            className="btn-primary"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Plus size={18} /> Add Driver
+          </motion.button>
+        )}
+      </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {(drivers || []).length === 0 ? (
