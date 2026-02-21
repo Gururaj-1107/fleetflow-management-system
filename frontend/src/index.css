@@ -417,6 +417,8 @@ html, body, #root { height: 100%; font-family: 'Outfit', system-ui, -apple-syste
   width: 100%;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  position: relative;
+  z-index: 1;
 }
 
 .input-modern:focus {
@@ -441,6 +443,39 @@ html, body, #root { height: 100%; font-family: 'Outfit', system-ui, -apple-syste
 }
 
 [data-theme="light"] .input-modern::placeholder { color: #a0a0b0; }
+
+/* Input icon wrapper - icon hides when input has value */
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon-wrapper .input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b6b80;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Hide icon when input has value (not showing placeholder) */
+.input-icon-wrapper .input-modern:not(:placeholder-shown) + .input-icon,
+.input-icon-wrapper .input-modern:focus:not(:placeholder-shown) ~ .input-icon {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.8);
+}
+
+/* Also hide icon via sibling selector when input is focused and has content */
+.input-icon-wrapper:has(.input-modern:not(:placeholder-shown)) .input-icon {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.8);
+}
+
+[data-theme="light"] .input-icon-wrapper .input-icon {
+  color: #9ca3af;
+}
 
 .select-modern {
   background: rgba(18, 18, 35, 0.8);
