@@ -170,18 +170,18 @@ export default function Drivers() {
             <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
               className="modal-content" onClick={e => e.stopPropagation()} data-testid="driver-modal">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-800">{modal === 'add' ? 'Add Driver' : 'Edit Driver'}</h2>
-                <button onClick={() => setModal(null)} className="text-gray-400"><X size={20} /></button>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">{modal === 'add' ? 'Add Driver' : 'Edit Driver'}</h2>
+                <button onClick={() => setModal(null)} className="text-gray-400 hover:text-white transition-colors"><X size={20} /></button>
               </div>
               <div className="space-y-4">
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">Full Name</label><input data-testid="driver-name-input" value={form.full_name || ''} onChange={e => setForm({ ...form, full_name: e.target.value })} className="input-modern" /></div>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">Full Name</label><input data-testid="driver-name-input" value={form.full_name || ''} onChange={e => setForm({ ...form, full_name: e.target.value })} className="input-modern" /></div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">License Number</label><input data-testid="driver-license-input" value={form.license_number || ''} onChange={e => setForm({ ...form, license_number: e.target.value })} className="input-modern" /></div>
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">License Expiry</label><input type="date" value={form.license_expiry || ''} onChange={e => setForm({ ...form, license_expiry: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">License Number</label><input data-testid="driver-license-input" value={form.license_number || ''} onChange={e => setForm({ ...form, license_number: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">License Expiry</label><input type="date" value={form.license_expiry || ''} onChange={e => setForm({ ...form, license_expiry: e.target.value })} className="input-modern" /></div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Safety Score (0-100)</label><input type="number" min="0" max="100" value={form.safety_score || ''} onChange={e => setForm({ ...form, safety_score: e.target.value })} className="input-modern" /></div>
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Status</label>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Safety Score (0-100)</label><input type="number" min="0" max="100" value={form.safety_score || ''} onChange={e => setForm({ ...form, safety_score: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Status</label>
                     <select value={form.status || 'off_duty'} onChange={e => setForm({ ...form, status: e.target.value })} className="select-modern">
                       <option value="on_duty">On Duty</option><option value="off_duty">Off Duty</option><option value="suspended">Suspended</option>
                     </select>
