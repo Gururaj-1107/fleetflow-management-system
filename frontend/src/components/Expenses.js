@@ -123,26 +123,26 @@ export default function Expenses() {
             <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
               className="modal-content" onClick={e => e.stopPropagation()} data-testid="expense-modal">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-800">Log Expense</h2>
-                <button onClick={() => setModal(false)} className="text-gray-400"><X size={20} /></button>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Log Expense</h2>
+                <button onClick={() => setModal(false)} className="text-gray-400 hover:text-white transition-colors"><X size={20} /></button>
               </div>
               <div className="space-y-4">
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">Vehicle</label>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">Vehicle</label>
                   <select data-testid="expense-vehicle-select" value={form.vehicle_id} onChange={e => setForm({ ...form, vehicle_id: e.target.value })} className="select-modern">
                     <option value="">Select vehicle...</option>
                     {(vehicles || []).map(v => <option key={v.id} value={v.id}>{v.name}</option>)}
                   </select>
                 </div>
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">Trip (optional)</label>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">Trip (optional)</label>
                   <select value={form.trip_id || ''} onChange={e => setForm({ ...form, trip_id: e.target.value })} className="select-modern">
                     <option value="">No trip linked</option>
                     {(trips || []).filter(t => t.status === 'completed').map(t => <option key={t.id} value={t.id}>{t.origin} → {t.destination}</option>)}
                   </select>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Fuel (L)</label><input data-testid="expense-fuel-input" type="number" value={form.fuel_liters} onChange={e => setForm({ ...form, fuel_liters: e.target.value })} className="input-modern" /></div>
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Fuel Cost ($)</label><input type="number" value={form.fuel_cost} onChange={e => setForm({ ...form, fuel_cost: e.target.value })} className="input-modern" /></div>
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Other ($)</label><input type="number" value={form.other_cost} onChange={e => setForm({ ...form, other_cost: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Fuel (L)</label><input data-testid="expense-fuel-input" type="number" value={form.fuel_liters} onChange={e => setForm({ ...form, fuel_liters: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Fuel Cost ($)</label><input type="number" value={form.fuel_cost} onChange={e => setForm({ ...form, fuel_cost: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Other ($)</label><input type="number" value={form.other_cost} onChange={e => setForm({ ...form, other_cost: e.target.value })} className="input-modern" /></div>
                 </div>
               </div>
               <div className="flex gap-3 mt-6">
