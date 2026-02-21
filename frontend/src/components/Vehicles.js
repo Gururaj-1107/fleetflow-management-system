@@ -55,13 +55,27 @@ export default function Vehicles() {
 
   return (
     <div className="space-y-4" data-testid="vehicles-page">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <motion.div 
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Vehicle Registry</h1>
-          <p className="text-gray-500 text-sm">{vehicles?.length || 0} assets managed</p>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Vehicle Registry</h1>
+          <p className="text-gray-400 text-sm">{vehicles?.length || 0} assets managed</p>
         </div>
-        {canEdit && <button data-testid="add-vehicle-btn" onClick={openAdd} className="btn-primary"><Plus size={18} /> Add Vehicle</button>}
-      </div>
+        {canEdit && (
+          <motion.button 
+            data-testid="add-vehicle-btn" 
+            onClick={openAdd} 
+            className="btn-primary"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Plus size={18} /> Add Vehicle
+          </motion.button>
+        )}
+      </motion.div>
 
       <div className="glass-card p-4 flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
