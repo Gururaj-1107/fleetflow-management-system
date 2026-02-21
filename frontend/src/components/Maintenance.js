@@ -138,20 +138,20 @@ export default function Maintenance() {
             <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
               className="modal-content" onClick={e => e.stopPropagation()} data-testid="maintenance-modal">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-800">Log Maintenance</h2>
-                <button onClick={() => setModal(false)} className="text-gray-400"><X size={20} /></button>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Log Maintenance</h2>
+                <button onClick={() => setModal(false)} className="text-gray-400 hover:text-white transition-colors"><X size={20} /></button>
               </div>
               <div className="space-y-4">
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">Vehicle</label>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">Vehicle</label>
                   <select data-testid="maint-vehicle-select" value={form.vehicle_id} onChange={e => setForm({ ...form, vehicle_id: e.target.value })} className="select-modern">
                     <option value="">Select vehicle...</option>
                     {(vehicles || []).filter(v => v.status !== 'retired').map(v => <option key={v.id} value={v.id}>{v.name} ({v.license_plate})</option>)}
                   </select>
                 </div>
-                <div><label className="text-sm font-medium text-gray-600 mb-1 block">Description</label><input data-testid="maint-desc-input" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="input-modern" placeholder="e.g. Brake Replacement" /></div>
+                <div><label className="text-sm font-medium text-gray-400 mb-1 block">Description</label><input data-testid="maint-desc-input" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="input-modern" placeholder="e.g. Brake Replacement" /></div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Cost ($)</label><input data-testid="maint-cost-input" type="number" value={form.cost} onChange={e => setForm({ ...form, cost: e.target.value })} className="input-modern" /></div>
-                  <div><label className="text-sm font-medium text-gray-600 mb-1 block">Service Date</label><input type="date" value={form.service_date} onChange={e => setForm({ ...form, service_date: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Cost ($)</label><input data-testid="maint-cost-input" type="number" value={form.cost} onChange={e => setForm({ ...form, cost: e.target.value })} className="input-modern" /></div>
+                  <div><label className="text-sm font-medium text-gray-400 mb-1 block">Service Date</label><input type="date" value={form.service_date} onChange={e => setForm({ ...form, service_date: e.target.value })} className="input-modern" /></div>
                 </div>
               </div>
               <div className="flex gap-3 mt-6">
