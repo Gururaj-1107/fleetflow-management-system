@@ -5,13 +5,19 @@ import toast from 'react-hot-toast';
 import useStore from '../store/useStore';
 
 export default function Trips() {
-  const { trips, vehicles, drivers, api, user } = useStore();
+  const { trips, vehicles, drivers, api, user, fetchTrips, fetchVehicles, fetchDrivers } = useStore();
   const [modal, setModal] = useState(null);
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
   const [filterStatus, setFilterStatus] = useState('all');
   const canManage = ['manager', 'dispatcher'].includes(user?.role);
+
+  React.useEffect(() => {
+    if (!trips || trips.length === 0) fetchTrips();
+    if (!vehicles || vehicles.length === 0) fetchVehicles();
+    if (!drivers || drivers.length === 0) fetchDrivers();
+  }, []);
 
   const filtered = (trips || []).filter(t => filterStatus === 'all' || t.status === filterStatus);
   const availableVehicles = (vehicles || []).filter(v => v.status === 'available');
