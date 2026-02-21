@@ -118,7 +118,7 @@ export default function Dashboard() {
               <motion.div 
                 className="progress-bar-fill" 
                 initial={{ width: 0 }}
-                animate={{ width: `${Math.min((Number(kpi.value) / (kpi.suffix === '%' ? 100 : Math.max(Number(kpi.value), 1) * 1.5)) * 100, 100)}%` }}
+                animate={{ width: `${Math.min(isNaN(kpi.value) || kpi.value === undefined ? 0 : (Number(kpi.value) / (kpi.suffix === '%' ? 100 : Math.max(Number(kpi.value), 1) * 1.5)) * 100, 100)}%` }}
                 transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
               />
             </div>
