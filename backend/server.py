@@ -519,3 +519,84 @@ async def seed_data():
     supabase.table('expenses').insert(exp_data).execute()
     
     return {"message": "Demo data seeded successfully", "counts": {"users": 4, "vehicles": 8, "drivers": 6, "trips": 8, "maintenance": 5, "expenses": 5}}
+
+
+# --- Setup RLS Policies ---
+@app.get("/api/setup/rls-sql")
+async def get_rls_sql():
+    """Return the RLS SQL script for manual execution in Supabase Dashboard"""
+    rls_sql = """
+-- FleetFlow Row Level Security (RLS) Policies
+-- Run this SQL in your Supabase SQL Editor
+
+-- Enable RLS on all tables
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE vehicles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE drivers ENABLE ROW LEVEL SECURITY;
+ALTER TABLE trips ENABLE ROW LEVEL SECURITY;
+ALTER TABLE maintenance_logs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE expenses ENABLE ROW LEVEL SECURITY;
+
+-- Helper function to get user role from JWT
+CREATE OR REPLACE FUNCTION get_user_role()
+RETURNS TEXT AS $$
+BEGIN
+  RETURN current_setting('request.jwt.claims', true)::json->>'role';
+EXCEPTION
+  WHEN OTHERS THEN RETURN NULL;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- USERS POLICIES
+CREATE POLICY "users_select_policy" ON users FOR SELECT USING (true);
+CREATE POLICY "users_insert_policy" ON users FOR INSERT WITH CHECK (get_user_role() = 'manager');
+CREATE POLICY "users_update_policy" ON users FOR UPDATE USING (get_user_role() = 'manager');
+CREATE POLICY "users_delete_policy" ON users FOR DELETE USING (get_user_role() = 'manager');
+
+-- VEHICLES POLICIES
+CREATE POLICY "vehicles_select_policy" ON vehicles FOR SELECT USING (true);
+CREATE POLICY "vehicles_insert_policy" ON vehicles FOR INSERT WITH CHECK (get_user_role() = 'manager');
+CREATE POLICY "vehicles_update_policy" ON vehicles FOR UPDATE USING (get_user_role() = 'manager');
+CREATE POLICY "vehicles_delete_policy" ON vehicles FOR DELETE USING (get_user_role() = 'manager');
+
+-- DRIVERS POLICIES
+CREATE POLICY "drivers_select_policy" ON drivers FOR SELECT USING (true);
+CREATE POLICY "drivers_insert_policy" ON drivers FOR INSERT WITH CHECK (get_user_role() IN ('manager', 'safety'));
+CREATE POLICY "drivers_update_policy" ON drivers FOR UPDATE USING (get_user_role() IN ('manager', 'safety'));
+CREATE POLICY "drivers_delete_policy" ON drivers FOR DELETE USING (get_user_role() = 'manager');
+
+-- TRIPS POLICIES
+CREATE POLICY "trips_select_policy" ON trips FOR SELECT USING (true);
+CREATE POLICY "trips_insert_policy" ON trips FOR INSERT WITH CHECK (get_user_role() IN ('manager', 'dispatcher'));
+CREATE POLICY "trips_update_policy" ON trips FOR UPDATE USING (get_user_role() IN ('manager', 'dispatcher'));
+CREATE POLICY "trips_delete_policy" ON trips FOR DELETE USING (get_user_role() = 'manager');
+
+-- MAINTENANCE POLICIES
+CREATE POLICY "maintenance_select_policy" ON maintenance_logs FOR SELECT USING (true);
+CREATE POLICY "maintenance_insert_policy" ON maintenance_logs FOR INSERT WITH CHECK (get_user_role() IN ('manager', 'dispatcher'));
+CREATE POLICY "maintenance_update_policy" ON maintenance_logs FOR UPDATE USING (get_user_role() IN ('manager', 'dispatcher'));
+CREATE POLICY "maintenance_delete_policy" ON maintenance_logs FOR DELETE USING (get_user_role() = 'manager');
+
+-- EXPENSES POLICIES  
+CREATE POLICY "expenses_select_policy" ON expenses FOR SELECT USING (true);
+CREATE POLICY "expenses_insert_policy" ON expenses FOR INSERT WITH CHECK (get_user_role() IN ('manager', 'dispatcher'));
+CREATE POLICY "expenses_update_policy" ON expenses FOR UPDATE USING (get_user_role() IN ('manager', 'dispatcher'));
+CREATE POLICY "expenses_delete_policy" ON expenses FOR DELETE USING (get_user_role() = 'manager');
+
+-- PERMISSION MATRIX:
+-- Manager:     Full CRUD on all tables
+-- Dispatcher:  CRUD on trips, maintenance, expenses | Read on vehicles, drivers
+-- Safety:      CRUD on drivers | Read on all other tables
+-- Analyst:     Read-only on all tables
+"""
+    return {"sql": rls_sql}
+
+# --- Forgot Password (Mock) ---
+@app.post("/api/auth/forgot-password")
+async def forgot_password(data: dict):
+    """Send password reset email (mock implementation)"""
+    email = data.get('email')
+    if not email:
+        raise HTTPException(400, "Email required")
+    # In production, integrate with email service (SendGrid, etc.)
+    return {"message": "Password reset link sent", "email": email}
