@@ -213,30 +213,30 @@ export default function Trips() {
               {step === 2 && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-3">
-                    <div><label className="text-sm font-medium text-gray-600 mb-1 block">Origin</label><input data-testid="trip-origin-input" value={form.origin || ''} onChange={e => setForm({ ...form, origin: e.target.value })} className="input-modern" placeholder="Los Angeles, CA" /></div>
-                    <div><label className="text-sm font-medium text-gray-600 mb-1 block">Destination</label><input data-testid="trip-dest-input" value={form.destination || ''} onChange={e => setForm({ ...form, destination: e.target.value })} className="input-modern" placeholder="San Francisco, CA" /></div>
+                    <div><label className="text-sm font-medium text-gray-400 mb-1 block">Origin</label><input data-testid="trip-origin-input" value={form.origin || ''} onChange={e => setForm({ ...form, origin: e.target.value })} className="input-modern" placeholder="Los Angeles, CA" /></div>
+                    <div><label className="text-sm font-medium text-gray-400 mb-1 block">Destination</label><input data-testid="trip-dest-input" value={form.destination || ''} onChange={e => setForm({ ...form, destination: e.target.value })} className="input-modern" placeholder="San Francisco, CA" /></div>
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     <div>
-                      <label className="text-sm font-medium text-gray-600 mb-1 block">Cargo Weight (kg)</label>
+                      <label className="text-sm font-medium text-gray-400 mb-1 block">Cargo Weight (kg)</label>
                       <input data-testid="trip-cargo-input" type="number" value={form.cargo_weight || ''} onChange={e => setForm({ ...form, cargo_weight: e.target.value })} className={`input-modern ${cargoExceeds ? 'border-red-400' : ''}`} />
-                      {cargoExceeds && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertTriangle size={12} /> Exceeds capacity ({selectedVehicle.max_capacity} kg)</p>}
+                      {cargoExceeds && <p className="text-red-400 text-xs mt-1 flex items-center gap-1"><AlertTriangle size={12} /> Exceeds capacity ({selectedVehicle.max_capacity} kg)</p>}
                     </div>
-                    <div><label className="text-sm font-medium text-gray-600 mb-1 block">Distance (km)</label><input type="number" value={form.distance || ''} onChange={e => setForm({ ...form, distance: e.target.value })} className="input-modern" /></div>
-                    <div><label className="text-sm font-medium text-gray-600 mb-1 block">Revenue ($)</label><input type="number" value={form.revenue || ''} onChange={e => setForm({ ...form, revenue: e.target.value })} className="input-modern" /></div>
+                    <div><label className="text-sm font-medium text-gray-400 mb-1 block">Distance (km)</label><input type="number" value={form.distance || ''} onChange={e => setForm({ ...form, distance: e.target.value })} className="input-modern" /></div>
+                    <div><label className="text-sm font-medium text-gray-400 mb-1 block">Revenue ($)</label><input type="number" value={form.revenue || ''} onChange={e => setForm({ ...form, revenue: e.target.value })} className="input-modern" /></div>
                   </div>
                 </div>
               )}
 
               {step === 3 && (
-                <div className="space-y-3 p-4 bg-gradient-to-br from-indigo-50/50 to-purple-50/50 rounded-2xl">
-                  <h3 className="font-semibold text-gray-800">Trip Summary</h3>
+                <div className="space-y-3 p-4 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl border border-indigo-500/20">
+                  <h3 className="font-semibold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Trip Summary</h3>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <span className="text-gray-500">Vehicle</span><span className="font-medium">{selectedVehicle?.name}</span>
                     <span className="text-gray-500">Driver</span><span className="font-medium">{selectedDriver?.full_name}</span>
                     <span className="text-gray-500">Route</span><span className="font-medium">{form.origin} → {form.destination}</span>
                     <span className="text-gray-500">Cargo</span><span className="font-medium">{Number(form.cargo_weight).toLocaleString()} kg</span>
-                    <span className="text-gray-500">Revenue</span><span className="font-medium text-indigo-600">${Number(form.revenue || 0).toLocaleString()}</span>
+                    <span className="text-gray-500">Revenue</span><span className="font-medium text-indigo-400">${Number(form.revenue || 0).toLocaleString()}</span>
                   </div>
                 </div>
               )}
