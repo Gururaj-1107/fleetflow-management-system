@@ -38,10 +38,27 @@ export default function Expenses() {
 
   return (
     <div className="space-y-4" data-testid="expenses-page">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div><h1 className="text-2xl font-bold text-gray-800">Expense & Fuel Logging</h1><p className="text-gray-500 text-sm">Financial tracking per asset</p></div>
-        {canManage && <button data-testid="add-expense-btn" onClick={openAdd} className="btn-primary"><Plus size={18} /> Log Expense</button>}
-      </div>
+      <motion.div 
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Expense & Fuel Logging</h1>
+          <p className="text-gray-400 text-sm">Financial tracking per asset</p>
+        </div>
+        {canManage && (
+          <motion.button 
+            data-testid="add-expense-btn" 
+            onClick={openAdd} 
+            className="btn-primary"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Plus size={18} /> Log Expense
+          </motion.button>
+        )}
+      </motion.div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -50,11 +67,27 @@ export default function Expenses() {
           { label: 'Other Expenses', value: totalOther, icon: DollarSign, cls: 'icon-gradient-warning' },
           { label: 'Total Fuel (L)', value: totalLiters, icon: Fuel, cls: 'icon-gradient-success', noPrefix: true },
         ].map((s, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-            className="glass-card p-5" data-testid={`expense-summary-${i}`}>
+          <motion.div 
+            key={i} 
+            initial={{ opacity: 0, y: 16 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: i * 0.1 }}
+            className="glass-card glass-card-hover p-5" 
+            data-testid={`expense-summary-${i}`}
+            whileHover={{ y: -4 }}
+          >
             <div className="flex items-center gap-3">
-              <div className={s.cls} style={{ width: 42, height: 42, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><s.icon size={18} className="text-white" /></div>
-              <div><p className="text-xs text-gray-400">{s.label}</p><p className="text-xl font-bold text-gray-800">{s.noPrefix ? '' : '$'}{Number(s.value).toLocaleString()}</p></div>
+              <motion.div 
+                className={s.cls} 
+                style={{ width: 42, height: 42, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+              >
+                <s.icon size={18} className="text-white" />
+              </motion.div>
+              <div>
+                <p className="text-xs text-gray-400">{s.label}</p>
+                <p className="text-xl font-bold">{s.noPrefix ? '' : '$'}{Number(s.value).toLocaleString()}</p>
+              </div>
             </div>
           </motion.div>
         ))}
