@@ -7,19 +7,22 @@ import useStore from '../store/useStore';
 
 function AnimatedCounter({ value, prefix = '', suffix = '', decimals = 0 }) {
   const [display, setDisplay] = useState(0);
+  const target = Number(value) || 0;
   useEffect(() => {
-    const target = Number(value) || 0;
-    const dur = 1200;
-    const step = target / (dur / 16);
-    let current = 0;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) { setDisplay(target); clearInterval(timer); }
-      else setDisplay(current);
-    }, 16);
-    return () => clearInterval(timer);
-  }, [value]);
-  return <span>{prefix}{decimals > 0 ? display.toFixed(decimals) : Math.floor(display).toLocaleString()}{suffix}</span>;
+    if (target === 0) { setDisplay(0); return; }
+    let start = 0;
+    const dur = 1000;
+    const startTime = performance.now();
+    const animate = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / dur, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(eased * target);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [target]);
+  return <span data-testid="counter-value">{prefix}{decimals > 0 ? display.toFixed(decimals) : Math.floor(display).toLocaleString()}{suffix}</span>;
 }
 
 const stagger = { animate: { transition: { staggerChildren: 0.08 } } };
